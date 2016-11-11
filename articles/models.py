@@ -1,9 +1,6 @@
 from django.db import models
 from author.models import AuthorProfile
 
-# Create your models here.
-All tables below have an id integer field which is the primary key. 
-
 
 class Article(models.Model):
 	article_headline = models.CharField()
