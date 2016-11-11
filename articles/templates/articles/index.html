@@ -1,0 +1,19 @@
+
+
+<!-- 	article_headline = models.CharField(max_length=256)
+	article_ingress = models.TextField()
+	html_article_content = models.TextField(default="")
+	date_published = models.DateTimeField()
+ -->
+{% for article in articles %}
+	<div class="col-md-10">
+    	<h2 class="title">{{ article.article_headline }}</h2>
+    	<h3 class="subtitle"> {{article.date_published}}</h3>
+    	<strong> {{article.article_ingress}} </strong>
+    	<div>
+    		{{ article.html_article_content }}
+    	</div>
+
+
+    </div>
+{% endfor %}
