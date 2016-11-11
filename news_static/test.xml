@@ -2,5 +2,6 @@
 <?xml-stylesheet type="text/xsl" href="articles-index.xsl"?>
 
 <article>
-	<text>a</text>
+	B
+	<text>A</text>
 </article>
