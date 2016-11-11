@@ -22,6 +22,5 @@ class ArticleTag(models.Model):
 	article  = models.ForeignKey(Article)
 
 
-
 class Tag(models.Model):
 	tag = models.CharField()
