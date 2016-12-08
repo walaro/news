@@ -3,14 +3,15 @@ from author.models import AuthorProfile
 
 
 class Article(models.Model):
-	article_headline = models.CharField(max_length=256)
-	article_ingress = models.TextField()
-	html_article_content = models.TextField(default="")
-	date_published = models.DateTimeField()
-	tags = models.TextField()
+    article_headline = models.CharField(max_length=256)
+    article_ingress = models.TextField()
+    html_article_content = models.TextField(default="")
+    date_published = models.DateTimeField()
+    author = models.CharField(max_length=256, default="")
+    tags = models.TextField()
 
-	def __str__(self):
-		return self.article_headline
+    def __str__(self):
+        return self.article_headline
 
 
 class ArticleAuthor(models.Model):

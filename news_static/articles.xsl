@@ -33,6 +33,7 @@
 				</a>
 			</h1>
 			<h4><xsl:value-of select="field[@name='date_published']"/></h4>
+			<h3><xsl:value-of select="field[@name='author']"/></h3>
 			<p><xsl:value-of select="field[@name='tags']"/></p>
 			<i><xsl:value-of select="field[@name='article_ingress']"/></i>
 			<p><xsl:value-of select="field[@name='html_article_content']"/></p>
