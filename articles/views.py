@@ -16,6 +16,24 @@ def index(request):
 	response.write(data)
 	return response
 
+
+def articles(request):
+	resultarticles = []
+	articles = Article.objects.order_by('-date_published')[:5]
+	for article in articles:
+		if request.GET['q'] in article.article_headline:
+			resultarticles.append(article)
+			print(article)
+
+	response = HttpResponse(content_type="application/xml; charset=utf-8")
+	data = serializers.serialize("xml", resultarticles, use_natural_foreign_keys=True)
+	stylesheet = "articles.xsl"
+
+	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+	data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
+	response.write(data)
+	return response
+
 def category(request, category):
 	resultarticles = []
 	articles = Article.objects.order_by('-date_published')[:5]
