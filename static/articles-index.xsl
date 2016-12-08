@@ -5,6 +5,9 @@
 
 
 	<xsl:template match="article">
-		dsa
-		<xsl:apply-templates/>
+		<xsl:template match="p">
+
+		</xsl:template>
 	</xsl:template>
+
+</xsl:stylesheet>

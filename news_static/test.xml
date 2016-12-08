@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<?xml-stylesheet type="text/xsl" href="articles-index.xsl"?>
+<?xml-stylesheet type="text/xsl" href="/static/articles-index.xsl"?>
 
-<article>
-	B
-	<text>A</text>
-</article>
+<articles>
+	<article>
+		<title>
+			<p>Dix</p>
+		</title>
+	</article>
+
+</articles>
