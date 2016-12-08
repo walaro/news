@@ -4,15 +4,19 @@
 	xmlns="http://www.w3.org/1999/xhtml">
 
 	<xsl:template match="django-objects">
-		<body><xsl:apply-templates/></body>
+		<body>
+			<xsl:apply-templates/>
+		</body>
 	</xsl:template>
 
 	<xsl:template match="object">
-		<div><xsl:apply-templates/></div>
+		<div>
+			<xsl:apply-templates select="field"/>
+		</div>
 	</xsl:template>
 
 	<xsl:template match="field">
-		<p><xsl:value-of select="../field"/></p>
+		<p><xsl:value-of select="node()"/></p>
 	</xsl:template>
 
 </xsl:stylesheet>
