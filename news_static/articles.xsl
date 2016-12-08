@@ -15,8 +15,16 @@
 	</xsl:template>
 
 	<xsl:template match="object">
+
 		<div>
-			<h1><xsl:value-of select="field[@name='article_headline']"/></h1>
+			<h1>
+				<a> 
+					<xsl:attribute name="href">
+						<xsl:value-of select="@pk"/>
+					</xsl:attribute>
+					<xsl:value-of select="field[@name='article_headline']"/>
+				</a>
+			</h1>
 			<h4><xsl:value-of select="field[@name='date_published']"/></h4>
 			<i><xsl:value-of select="field[@name='article_ingress']"/></i>
 			<p><xsl:value-of select="field[@name='html_article_content']"/></p>

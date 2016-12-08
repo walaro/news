@@ -8,6 +8,9 @@ class Article(models.Model):
 	html_article_content = models.TextField(default="")
 	date_published = models.DateTimeField()
 
+	def __str__(self):
+		return self.article_headline
+
 
 class ArticleAuthor(models.Model):
 	article = models.ForeignKey(Article)
@@ -17,8 +20,14 @@ class ArticleAuthor(models.Model):
 class Tag(models.Model):
 	tag = models.CharField(max_length=256)
 
+	def __str__(self):
+		return self.tag
+
 class ArticleTag(models.Model):
 	tag = models.ForeignKey(Tag)
-	article  = models.ForeignKey(Article)
+	article = models.ForeignKey(Article)
+
+	def __str__(self):
+		return str(self.tag) + ", " + str(self.article)
 
 
