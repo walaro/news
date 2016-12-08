@@ -70,6 +70,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 		<h3><xsl:value-of select="field[@name='author']"/></h3>
 		<p><xsl:value-of select="field[@name='tags']"/></p>
 		<i><xsl:value-of select="field[@name='article_ingress']"/></i>
+        <br/><br/>
 		<p><xsl:value-of select="field[@name='html_article_content']"/></p>
 	</div>
 </xsl:template>
