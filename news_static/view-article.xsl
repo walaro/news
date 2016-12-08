@@ -7,13 +7,7 @@
 		<html>
 			<head>
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-
-				<style>
-					.center {
-						text-align: center;
-					}
-
-				</style>
+				<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			</head>
 			<body>
 				<xsl:apply-templates/>
@@ -34,6 +28,7 @@
 				</a>
 			</h1>
 			<h4><xsl:value-of select="field[@name='date_published']"/></h4>
+			<p><xsl:value-of select="field[@name='tags']"/></p>
 			<i><xsl:value-of select="field[@name='article_ingress']"/></i>
 			<br/><br/>
 			<p><xsl:value-of select="field[@name='html_article_content']"/></p>

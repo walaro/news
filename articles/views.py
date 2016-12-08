@@ -1,18 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Article, ArticleTag
+from .models import Article
 from django.core import serializers
 from django import forms
 import datetime
+
 def index(request):
 	articles = Article.objects.order_by('-date_published')[:5]
-	# for article in articles:
-		# print(ArticleTag.objects.select_related('article').get(article=article))
-	# print(Article.objects.prefetch_related('articletag_set').all())
-	
-	context = {'articles': articles}
 	response = HttpResponse(content_type="application/xml; charset=utf-8")
-	data = serializers.serialize("xml", articles)
+	data = serializers.serialize("xml", articles, use_natural_foreign_keys=True)
+	stylesheet = "articles.xsl"
+
+	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+	data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
+	response.write(data)
+	return response
+
+def category(request, category):
+	resultarticles = []
+	articles = Article.objects.order_by('-date_published')[:5]
+	for article in articles:
+		if category in article.tags:
+			resultarticles.append(article)
+			print(article)
+
+	response = HttpResponse(content_type="application/xml; charset=utf-8")
+	data = serializers.serialize("xml", resultarticles, use_natural_foreign_keys=True)
 	stylesheet = "articles.xsl"
 
 	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
@@ -22,7 +35,6 @@ def index(request):
 
 def view_article(request, pk):
 	articles = [Article.objects.get(pk=pk)]
-	context = {'articles': articles}
 	response = HttpResponse(content_type="application/xml; charset=utf-8")
 	data = serializers.serialize("xml", articles)
 	stylesheet = "view-article.xsl"
