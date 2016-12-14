@@ -11,6 +11,13 @@
 			<head>
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1"/>
+				<style>
+					.srch-container {
+						position:absolute;
+						top: 35px;
+						right: 0;
+					}
+				</style>
 			</head>
 			<body>
 				<script>
@@ -27,10 +34,10 @@
 					<li><a href="/Väder">Väder</a></li>
                 </ul>
 
-			<input type="text" id="search"/>
-			<button type="button" onclick="search()">Search</button>
+		        <div class="srch-container">
 
-		        <div class="col-md-6 col-md-offset-3">
+					<input type="text" id="search"/>
+					<button type="button" class="btn btn-default" onclick="search()">Search</button>
                     <xsl:choose>
                         <xsl:when test="boolean(/data/logged_in = 'true')">
                             <a href="/logout" class="btn btn-default" role="button">Logout</a>
@@ -39,6 +46,8 @@
                             <a href="/login" class="btn btn-default" role="button">Login</a>
                         </xsl:otherwise>
                     </xsl:choose>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
                     <xsl:apply-templates/>
 		        </div>
 			</body>
