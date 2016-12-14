@@ -5,6 +5,9 @@ from django.core import serializers
 from django import forms
 import datetime
 
+
+small = False
+
 def index(request):
     articles = Article.objects.order_by('-date_published')[:5]
     data = serializers.serialize("xml", articles, use_natural_foreign_keys=True)
@@ -23,7 +26,7 @@ def articles(request):
 
 	response = HttpResponse(content_type="application/xml; charset=utf-8")
 	data = serializers.serialize("xml", resultarticles, use_natural_foreign_keys=True)
-	stylesheet = "articles.xsl"
+	stylesheet = "articles.xsl" if not small else "articles-small.xsl"
 
 	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
 	data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
@@ -40,7 +43,7 @@ def category(request, category):
 
     response = HttpResponse(content_type="application/xml; charset=utf-8")
     data = serializers.serialize("xml", resultarticles, use_natural_foreign_keys=True)
-    stylesheet = "articles.xsl"
+    stylesheet = "articles.xsl" if not small else "articles-small.xsl"
 
     leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
     data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
@@ -51,7 +54,7 @@ def view_article(request, pk):
     articles = [Article.objects.get(pk=pk)]
     response = HttpResponse(content_type="application/xml; charset=utf-8")
     data = serializers.serialize("xml", articles)
-    stylesheet = "view-article.xsl"
+    stylesheet = "view-article.xsl" if not small else "view-article-small.xsl"
 
     leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
     data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
