@@ -25,7 +25,7 @@ SECRET_KEY = 'kdp!s6=#sc5e#eo(_!k-rvz659t4+%l&%sf)6e6slzuo9h!0r%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
