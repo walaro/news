@@ -6,15 +6,11 @@ from django import forms
 import datetime
 
 def index(request):
-	articles = Article.objects.order_by('-date_published')[:5]
-	response = HttpResponse(content_type="application/xml; charset=utf-8")
-	data = serializers.serialize("xml", articles, use_natural_foreign_keys=True)
-	stylesheet = "articles.xsl"
-
-	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-	data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
-	response.write(data)
-	return response
+    articles = Article.objects.order_by('-date_published')[:5]
+    data = serializers.serialize("xml", articles, use_natural_foreign_keys=True)
+    first_line_end = data.find('\n')
+    data = data[first_line_end+1:]
+    return render(request, 'articles/articles.xml', {'xml_data':data}, content_type="text/xml")
 
 
 def articles(request):
@@ -35,32 +31,32 @@ def articles(request):
 	return response
 
 def category(request, category):
-	resultarticles = []
-	articles = Article.objects.order_by('-date_published')[:5]
-	for article in articles:
-		if category in article.tags:
-			resultarticles.append(article)
-			print(article)
+    resultarticles = []
+    articles = Article.objects.order_by('-date_published')[:5]
+    for article in articles:
+        if category in article.tags:
+            resultarticles.append(article)
+            print(article)
 
-	response = HttpResponse(content_type="application/xml; charset=utf-8")
-	data = serializers.serialize("xml", resultarticles, use_natural_foreign_keys=True)
-	stylesheet = "articles.xsl"
+    response = HttpResponse(content_type="application/xml; charset=utf-8")
+    data = serializers.serialize("xml", resultarticles, use_natural_foreign_keys=True)
+    stylesheet = "articles.xsl"
 
-	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-	data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
-	response.write(data)
-	return response
+    leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+    data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
+    response.write(data)
+    return response
 
 def view_article(request, pk):
-	articles = [Article.objects.get(pk=pk)]
-	response = HttpResponse(content_type="application/xml; charset=utf-8")
-	data = serializers.serialize("xml", articles)
-	stylesheet = "view-article.xsl"
+    articles = [Article.objects.get(pk=pk)]
+    response = HttpResponse(content_type="application/xml; charset=utf-8")
+    data = serializers.serialize("xml", articles)
+    stylesheet = "view-article.xsl"
 
-	leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-	data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
-	response.write(data)
-	return response
+    leng = len("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+    data = data[0:leng] + "<?xml-stylesheet type=\"text/xsl\" href=\"/static/" + stylesheet + "\"?>" + data[leng:]
+    response.write(data)
+    return response
 
 class ArticleForm(forms.ModelForm):
     date_published = forms.DateTimeField(initial=datetime.datetime.now)
