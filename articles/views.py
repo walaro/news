@@ -75,3 +75,11 @@ def edit_article(request, pk, template_name='articles/article_form.html'):
         return redirect('articles')
     return render(request, template_name, {'form':form})
 
+def new_article(request, template_name='articles/article_form.html'):
+    form = ArticleForm(request.POST or None)
+    if request.method=='POST':     
+        if form.is_valid():
+            form.save()
+            return redirect('articles')
+    return render(request, template_name, {'form':form})
+
