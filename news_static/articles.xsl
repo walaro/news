@@ -2,8 +2,11 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns="http://www.w3.org/1999/xhtml">
-
-	<xsl:template match="django-objects">
+    <xsl:template match="data">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="logged_in"/> 
+    <xsl:template match="django-objects">
 		<html>
 			<head>
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -15,33 +18,52 @@
 					<li><a href="/Politik">Politik</a></li>
 					<li><a href="/Sport">Sport</a></li>
 					<li><a href="/Väder">Väder</a></li>
-				</ul>
-				<xsl:apply-templates/>
+                </ul>
+
+		        <div class="col-md-6 col-md-offset-3">
+                    <xsl:choose>
+                        <xsl:when test="boolean(/data/logged_in = 'true')">
+                            <a href="/logout" class="btn btn-default" role="button">Logout</a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <a href="/login" class="btn btn-default" role="button">Login</a>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates/>
+		        </div>
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template match="object">
 
-		<div class="col-md-6 col-md-offset-3">
 			<h1>
 				<a> 
 					<xsl:attribute name="href">
 						<xsl:value-of select="@pk"/>
 					</xsl:attribute>
 					<xsl:value-of select="field[@name='article_headline']"/>
-				</a>
+                </a>
+                <xsl:if test="boolean(/data/logged_in = 'true')">
+                    <a class="btn btn-default" role="button">
+
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="@pk"/>/edit
+                        </xsl:attribute>
+                            
+                        Edit
+                    </a>
+                </xsl:if>
 			</h1>
 			<h4><xsl:value-of select="field[@name='date_published']"/></h4>
 			<h3><xsl:value-of select="field[@name='author']"/></h3>
 			<p><xsl:value-of select="field[@name='tags']"/></p>
 			<i><xsl:value-of select="field[@name='article_ingress']"/></i>
 			<p><xsl:value-of select="field[@name='html_article_content']"/></p>
-		</div>
 	</xsl:template>
 
 	<xsl:template match="field">
 		<p><xsl:value-of select="node()"/></p>
-	</xsl:template>
+    </xsl:template>
 
 </xsl:stylesheet>
