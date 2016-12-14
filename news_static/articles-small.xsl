@@ -55,6 +55,7 @@
                     <xsl:choose>
                         <xsl:when test="boolean(/data/logged_in = 'true')">
                             <a href="/logout" class="btn btn-default" role="button">Logout</a>
+                            <a href="/new" class="btn btn-default" role="button">New article</a>
                         </xsl:when>
                         <xsl:otherwise>
                             <a href="/login" class="btn btn-default" role="button">Login</a>
