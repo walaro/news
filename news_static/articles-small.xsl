@@ -13,10 +13,23 @@
 				<meta name="viewport" content="width=device-width, initial-scale=1"/>
 				<style>
 					.srch-container {
-						position:absolute;
-						top: 35px;
-						right: 0;
 					}
+				.header {
+					text-align: center;
+				}
+
+				ul {
+					display: block;
+				}
+
+
+				input {
+					border: 1px solid black;
+				}
+
+				h1 {
+					font-size: 22px;
+				}
 				</style>
 			</head>
 			<body>
@@ -27,14 +40,15 @@
 	                    window.location.href = "http://localhost:8000/articles?q=" + query;
 					}
 				</script>
-				<ul class="nav nav-tabs nav-justified">
+
+		        <div class="header">
+
+				<ul>
 					<li><a href="/">Alla</a></li>
 					<li><a href="/Politik">Politik</a></li>
 					<li><a href="/Sport">Sport</a></li>
 					<li><a href="/Väder">Väder</a></li>
                 </ul>
-
-		        <div class="srch-container">
 
 					<input type="text" id="search"/>
 					<button type="button" class="btn btn-default" onclick="search()">Search</button>
@@ -77,8 +91,7 @@
 			<h4><xsl:value-of select="field[@name='date_published']"/></h4>
 			<h3><xsl:value-of select="field[@name='author']"/></h3>
 			<p><xsl:value-of select="field[@name='tags']"/></p>
-			<p><i><xsl:value-of select="field[@name='article_ingress']"/></i></p>
-			<p><xsl:value-of select="field[@name='html_article_content']"/></p>
+			<i><xsl:value-of select="field[@name='article_ingress']"/></i>
 	</xsl:template>
 
 	<xsl:template match="field">

@@ -6,7 +6,7 @@ from django import forms
 import datetime
 
 
-small = False
+small = True
 
 def index(request):
     articles = Article.objects.order_by('-date_published')[:5]
