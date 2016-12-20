@@ -4,7 +4,7 @@ from .models import Article
 from django.core import serializers
 from django import forms
 import datetime
-
+import re
 
 small = True
 
@@ -13,7 +13,13 @@ def index(request):
     data = serializers.serialize("xml", articles, use_natural_foreign_keys=True)
     first_line_end = data.find('\n')
     data = data[first_line_end+1:]
-    return render(request, 'articles/articles.xml', {'xml_data':data}, content_type="text/xml")
+    result = re.match(".*Mobile.*", request.META['HTTP_USER_AGENT'])
+    if result is not None:
+        mobile = True
+    else:
+        mobile = False
+    
+    return render(request, 'articles/articles.xml', {'xml_data':data, 'mobile':mobile}, content_type="text/xml")
 
 
 def articles(request):

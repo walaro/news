@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+{% if mobile == True %}
 <?xml-stylesheet type="text/xsl" href="/static/articles-small.xsl"?>
+{% else %}
+<?xml-stylesheet type="text/xsl" href="/static/articles.xsl"?>
+{% endif %}
 <data>
+
 {% if request.user.is_authenticated %}
 <logged_in>true</logged_in>{% else %}
 <logged_in>false</logged_in>{% endif %}
 {{ xml_data|safe }}
+
 </data>
